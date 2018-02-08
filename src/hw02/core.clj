@@ -37,7 +37,7 @@
         (or (= e2 0)(= e1 1)) 1
         (= e2 1) e1 
         (and (number? e1) (number? e2)) (Math/pow e1 e2)  
-        :else (list '* e1 e2)))
+        :else (list '** e1 e2)))
 
 (defn sum?
   " is e a sum? "
@@ -102,6 +102,8 @@
                                       (deriv (multiplicand exp) var))
                         (make-product (deriv (multiplier exp) var)
                                       (multiplicand exp)))
+        (exponentiation? exp) (make-product 
+                            (exponent exp)(make-exponentiation (base exp) (- (exponent exp) 1))) 
         :else (throw (Exception. "unknown expression type -- DERIV" exp))))
 
   

@@ -102,8 +102,9 @@
                                       (deriv (multiplicand exp) var))
                         (make-product (deriv (multiplier exp) var)
                                       (multiplicand exp)))
-        (exponentiation? exp) (make-product 
-                            (exponent exp)(make-exponentiation (base exp) (- (exponent exp) 1))) 
+        (exponentiation? exp) (make-product
+                                (make-product (exponent exp) (deriv (base exp) var))
+                                (make-exponentiation (base exp) (- (exponent exp) 1)))
         :else (throw (Exception. "unknown expression type -- DERIV" exp))))
 
   
